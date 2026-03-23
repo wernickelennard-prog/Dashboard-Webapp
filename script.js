@@ -256,6 +256,26 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
+// ─── APP DEEP LINKS ───────────────────────────
+// Versucht die App zu öffnen — schlägt es fehl, geht der Browser auf
+function openApp(appScheme, webFallback) {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) {
+        window.open(webFallback, '_blank');
+        return;
+    }
+    // Fallback nach 1.5 Sekunden falls App nicht installiert
+    const fallbackTimer = setTimeout(() => {
+        window.open(webFallback, '_blank');
+    }, 1500);
+    // App öffnen
+    window.location.href = appScheme;
+    // Wenn App sich öffnet verliert die Seite den Focus → Timer stoppen
+    window.addEventListener('blur', () => {
+        clearTimeout(fallbackTimer);
+    }, { once: true });
+}
+
 // ─── PARALLAX MOUSEMOVE ───────────────────────
 function initParallax() {
     let mouseX = 0, mouseY = 0;

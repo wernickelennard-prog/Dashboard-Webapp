@@ -454,12 +454,25 @@ body::after {
     max-width: 110px;
     max-height: 54px;
     height: auto;
-    filter: invert(1) opacity(0.4);
+    /* Erst alles schwarz machen (brightness 0), dann invertieren = weiß, dann opacity */
+    filter: brightness(0) invert(1) opacity(0.4);
     transition: filter 0.3s ease, transform 0.3s ease;
     pointer-events: none;
 }
 .app-card:hover .app-logo {
-    filter: invert(1) opacity(1)
+    filter: brightness(0) invert(1) opacity(1)
+            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
+    transform: scale(1.1);
+}
+
+/* Helle Themes — weiß zu schwarz */
+[data-theme="hellokitty"] .app-logo,
+[data-theme="capybara"] .app-logo {
+    filter: brightness(0) opacity(0.35);
+}
+[data-theme="hellokitty"] .app-card:hover .app-logo,
+[data-theme="capybara"] .app-card:hover .app-logo {
+    filter: brightness(0) opacity(1)
             drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
     transform: scale(1.1);
 }
@@ -472,36 +485,22 @@ body::after {
     display: block;
     margin: 0 auto;
     color: white;
-    filter: invert(1) opacity(0.4);
+    filter: brightness(0) invert(1) opacity(0.4);
     transition: filter 0.3s ease, transform 0.3s ease;
 }
 .app-card:hover .app-logo--svg {
-    filter: invert(1) opacity(1)
+    filter: brightness(0) invert(1) opacity(1)
             drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
     transform: scale(1.08);
 }
-
-/* Helle Themes — kein invert für Disney SVG */
 [data-theme="hellokitty"] .app-logo--svg,
 [data-theme="capybara"] .app-logo--svg {
-    filter: invert(0) opacity(0.35);
+    filter: brightness(0) opacity(0.35);
 }
 [data-theme="hellokitty"] .app-card:hover .app-logo--svg,
 [data-theme="capybara"] .app-card:hover .app-logo--svg {
-    filter: invert(0) opacity(1)
+    filter: brightness(0) opacity(1)
             drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
-}
-
-/* Für helle Themes — img logos nicht invertieren */
-[data-theme="hellokitty"] .app-logo,
-[data-theme="capybara"] .app-logo {
-    filter: invert(0) opacity(0.35);
-}
-[data-theme="hellokitty"] .app-card:hover .app-logo,
-[data-theme="capybara"] .app-card:hover .app-logo {
-    filter: invert(0) opacity(1)
-            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
-    transform: scale(1.1);
 }
 
 /* ============================================

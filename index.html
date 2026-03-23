@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/waltograph" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div class="main-wrapper">
+
+    <header class="top-nav">
+        <div class="header-left">
+            <p id="date">Lade...</p>
+            <h1 id="clock">00:00</h1>
+        </div>
+        <div class="header-btns">
+            <button onclick="toggleModal('link-modal')" class="nav-btn"><i class="fas fa-link"></i><span>Links</span></button>
+            <button onclick="toggleModal('style-modal')" class="nav-btn"><i class="fas fa-palette"></i><span>Style</span></button>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-pill">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" name="q" placeholder="Suchen..." autocomplete="off">
+            <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
+        </form>
+    </section>
+
+    <main class="grid" id="main-grid">
+
+        <!-- WETTER -->
+        <div class="card weather-card">
+            <div class="weather-main">
+                <i id="w-icon" class="fas fa-sun weather-icon"></i>
+                <div class="weather-info">
+                    <span id="temp" class="temp-display">--°</span>
+                    <p id="weather-desc">Lädt...</p>
+                </div>
+            </div>
+            <div class="weather-details">
+                <span><i class="fas fa-droplet"></i> <span id="humidity">--%</span></span>
+                <span><i class="fas fa-wind"></i> <span id="wind">-- km/h</span></span>
+                <span><i class="fas fa-location-dot"></i> <span id="city">--</span></span>
+            </div>
+        </div>
+
+        <!-- TODO -->
+        <div class="card todo-card">
+            <div class="card-header">
+                <h3><i class="fas fa-check-circle"></i> Aufgaben</h3>
+                <span id="todo-count" class="badge">0</span>
+            </div>
+            <div class="todo-input-row">
+                <input type="text" id="todo-in" placeholder="Neue Aufgabe..." onkeydown="if(event.key==='Enter')addTodo()">
+                <button onclick="addTodo()" class="icon-btn"><i class="fas fa-plus"></i></button>
+            </div>
+            <ul id="todo-list"></ul>
+        </div>
+
+        <!-- APP SHORTCUTS -->
+        <div class="card app-card" onclick="window.open('https://www.netflix.com')">
+            <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/netflix.svg" alt="Netflix">
+        </div>
+
+        <div class="card app-card" onclick="window.open('https://www.youtube.com')">
+            <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/youtube.svg" alt="YouTube">
+        </div>
+
+        <div class="card app-card" onclick="window.open('https://www.disneyplus.com')">
+            <svg class="app-logo app-logo--svg" viewBox="0 0 160 54" xmlns="http://www.w3.org/2000/svg">
+                <text x="4" y="42" fill="currentColor"
+                      font-family="Waltograph, Georgia, serif"
+                      font-size="40" letter-spacing="1">Disney</text>
+            </svg>
+        </div>
+
+        <div class="card app-card" onclick="window.open('https://www.max.com')">
+            <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/hbomax.svg" alt="HBO MAX">
+        </div>
+
+        <!-- CUSTOM LINKS -->
+        <div class="card links-card" id="links-display">
+            <div class="card-header">
+                <h3><i class="fas fa-bookmark"></i> Meine Links</h3>
+            </div>
+            <div id="links-grid"></div>
+            <button onclick="toggleModal('link-modal')" class="add-link-btn"><i class="fas fa-plus"></i> Link hinzufügen</button>
+        </div>
+
+    </main>
+</div>
+
+<!-- STYLE MODAL -->
+<div id="style-modal" class="modal-overlay" onclick="closeOnOverlay(event,'style-modal')">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Design wählen</h3>
+            <button class="modal-close" onclick="toggleModal('style-modal')"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="theme-grid">
+            <button class="t-btn" data-theme-name="dark" onclick="setTheme('dark')">
+                <span class="t-swatch" style="background:#0a0a0a;border-color:#fde047"></span>
+                <span>Batman</span>
+            </button>
+            <button class="t-btn" data-theme-name="hellokitty" onclick="setTheme('hellokitty')">
+                <span class="t-swatch" style="background:#ffdae9;border-color:#ff4d94"></span>
+                <span>Pink</span>
+            </button>
+            <button class="t-btn" data-theme-name="capybara" onclick="setTheme('capybara')">
+                <span class="t-swatch" style="background:#f5ebe0;border-color:#a98467"></span>
+                <span>Capy</span>
+            </button>
+            <button class="t-btn" data-theme-name="spiderman" onclick="setTheme('spiderman')">
+                <span class="t-swatch" style="background:#b91c1c;border-color:#ffffff"></span>
+                <span>Spidey</span>
+            </button>
+            <button class="t-btn" data-theme-name="ocean" onclick="setTheme('ocean')">
+                <span class="t-swatch" style="background:#0d1b2a;border-color:#00d4ff"></span>
+                <span>Ocean</span>
+            </button>
+            <button class="t-btn" data-theme-name="forest" onclick="setTheme('forest')">
+                <span class="t-swatch" style="background:#1a2e1a;border-color:#4ade80"></span>
+                <span>Forest</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- LINK MODAL -->
+<div id="link-modal" class="modal-overlay" onclick="closeOnOverlay(event,'link-modal')">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Links verwalten</h3>
+            <button class="modal-close" onclick="toggleModal('link-modal')"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="link-input-group">
+            <input type="text" id="link-name" placeholder="Name (z.B. GitHub)">
+            <input type="text" id="link-url" placeholder="URL (z.B. https://github.com)">
+            <button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
+        </div>
+        <div id="link-list" class="link-list-modal"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

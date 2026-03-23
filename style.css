@@ -650,11 +650,73 @@ body::after {
 .link-list-item button:hover { color: #ff4444; background: rgba(255,68,68,0.1); }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE — Tablet (max 900px)
    ============================================ */
-@media (max-width: 700px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    .weather-card, .todo-card, .links-card { grid-column: span 2; }
-    #clock { font-size: 3.5rem; letter-spacing: -2px; }
-    .theme-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+    .main-wrapper { max-width: 100%; }
+    #clock { font-size: 5rem; }
+}
+
+/* ============================================
+   RESPONSIVE — Handy (max 600px)
+   ============================================ */
+@media (max-width: 600px) {
+    body { padding: 24px 14px 60px; }
+
+    /* Header */
+    .top-nav { margin-bottom: 24px; align-items: center; }
+    #clock {
+        font-size: clamp(2.8rem, 14vw, 4rem);
+        letter-spacing: -2px;
+    }
+    .header-left #date { font-size: 0.75rem; }
+    .nav-btn span { display: none; } /* nur Icons auf Handy */
+    .nav-btn { padding: 10px 14px; }
+
+    /* Search */
+    .search-section { margin-bottom: 20px; }
+    .search-pill { padding: 12px 14px 12px 20px; }
+    .search-pill input { font-size: 1rem; }
+
+    /* Grid — alles untereinander auf Handy */
+    .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* Wetter & Todo — volle Breite */
+    .weather-card { grid-column: span 2; }
+    .todo-card    { grid-column: span 2; }
+    .links-card   { grid-column: span 2; }
+
+    /* App Cards — 2x2 Grid, quadratisch */
+    .app-card { aspect-ratio: 1; }
+    .app-logo { max-height: 36px; width: 55%; }
+
+    /* Wetter */
+    .temp-display { font-size: 2.4rem; }
+    .weather-icon { font-size: 2.8rem; }
+    .weather-details { gap: 12px; font-size: 0.78rem; }
+
+    /* Todo */
+    #todo-list { max-height: 160px; }
+    .todo-input-row input { font-size: 0.85rem; padding: 9px 12px; }
+
+    /* Modal */
+    .modal-box { padding: 24px 20px; border-radius: 24px; }
+    .theme-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .link-input-group { flex-direction: column; }
+    .link-input-group input { width: 100%; }
+
+    /* Links */
+    .link-chip { font-size: 0.8rem; padding: 7px 12px 7px 9px; }
+}
+
+/* ============================================
+   RESPONSIVE — Sehr kleines Handy (max 380px)
+   ============================================ */
+@media (max-width: 380px) {
+    #clock { font-size: 2.6rem; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .app-logo { max-height: 28px; }
 }

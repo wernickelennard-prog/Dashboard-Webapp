@@ -462,19 +462,32 @@ body::after {
     transform: scale(1.1);
 }
 
-/* Disney+ inline SVG — direkt mit currentColor */
+/* Disney+ inline SVG — gleicher Look wie die img Logos */
 .app-logo--svg {
     width: 82%;
     max-width: 150px;
     height: auto;
-    filter: none;
-    color: var(--text-dim);
-    transition: color 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    color: white;
+    filter: invert(1) opacity(0.4);
+    transition: filter 0.3s ease, transform 0.3s ease;
 }
 .app-card:hover .app-logo--svg {
-    color: var(--accent);
-    filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
+    filter: invert(1) opacity(1)
+            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
     transform: scale(1.08);
+}
+
+/* Helle Themes — kein invert für Disney SVG */
+[data-theme="hellokitty"] .app-logo--svg,
+[data-theme="capybara"] .app-logo--svg {
+    filter: invert(0) opacity(0.35);
+}
+[data-theme="hellokitty"] .app-card:hover .app-logo--svg,
+[data-theme="capybara"] .app-card:hover .app-logo--svg {
+    filter: invert(0) opacity(1)
+            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
 }
 
 /* Für helle Themes — img logos nicht invertieren */

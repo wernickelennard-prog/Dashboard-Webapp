@@ -134,6 +134,21 @@
     </div>
 </div>
 
+<!-- LINK MODAL -->
+<div id="link-modal" class="modal-overlay" onclick="closeOnOverlay(event,'link-modal')">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Links verwalten</h3>
+            <button class="modal-close" onclick="toggleModal('link-modal')"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="link-input-group">
+            <input type="text" id="link-name" placeholder="Name (z.B. GitHub)">
+            <input type="text" id="link-url" placeholder="URL (z.B. https://github.com)">
+            <button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
+        </div>
+        <div id="link-list" class="link-list-modal"></div>
+    </div>
+</div>
 
 <script src="script.js"></script>
 </body>

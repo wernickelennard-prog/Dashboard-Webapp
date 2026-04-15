@@ -712,6 +712,60 @@ body::after {
     .link-chip { font-size: 0.8rem; padding: 7px 12px 7px 9px; }
 }
 
+
+/* ============================================
+   ZUSATZ: MEHR VON MIR
+   ============================================ */
+.social-section {
+    grid-column: span 4; /* Nutzt die volle Breite */
+    margin-top: 10px;
+}
+
+.social-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px;
+    background: var(--input-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.social-item i {
+    font-size: 1.4rem;
+    color: var(--accent);
+}
+
+.social-item:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(var(--accent-rgb), 0.2);
+}
+
+.social-item:hover i {
+    color: var(--bg);
+}
+
+/* Handy-Anpassung */
+@media (max-width: 600px) {
+    .social-links-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 /* ============================================
    RESPONSIVE — Sehr kleines Handy (max 380px)
    ============================================ */

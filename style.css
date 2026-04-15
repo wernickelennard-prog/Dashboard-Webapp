@@ -767,6 +767,91 @@ body::after {
 }
 
 /* ============================================
+   ZUSATZ: MEHR VON MIR (Voll optimiert)
+   ============================================ */
+.social-section {
+    grid-column: span 4; /* Desktop: Volle Breite */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.social-links-grid {
+    display: grid;
+    /* Desktop: 4 Spalten */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    width: 100%;
+}
+
+.social-item {
+    display: flex;
+    flex-direction: column; /* Icon über Text */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 15px;
+    background: var(--card-bg); /* Gleicher Hintergrund wie die anderen Karten */
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter: blur(12px);
+}
+
+.social-item i {
+    font-size: 1.6rem;
+    color: var(--accent);
+}
+
+/* Hover-Effekt wie bei deinen anderen Karten */
+.social-item:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(var(--accent-rgb), 0.3);
+}
+
+.social-item:hover i {
+    color: var(--bg);
+}
+
+/* --- HANDY OPTIMIERUNG (WICHTIG) --- */
+@media (max-width: 600px) {
+    .social-section {
+        grid-column: span 2; /* Passt sich deinem Handy-Grid an */
+    }
+
+    .social-links-grid {
+        /* Auf dem Handy: 2 Spalten, damit es nicht zu eng wird */
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .social-item {
+        padding: 15px 10px;
+        font-size: 0.8rem;
+    }
+
+    .social-item i {
+        font-size: 1.4rem;
+    }
+}
+
+/* Ganz kleine Handys */
+@media (max-width: 380px) {
+    .social-links-grid {
+        grid-template-columns: 1fr; /* Alles untereinander, wenn es zu schmal wird */
+    }
+}
+
+
+
+
+/* ============================================
    RESPONSIVE — Sehr kleines Handy (max 380px)
    ============================================ */
 @media (max-width: 380px) {

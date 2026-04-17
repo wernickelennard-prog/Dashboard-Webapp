@@ -96,37 +96,15 @@
                 <h3><i class="fa-regular fa-flag"></i> Mehr von mir!</h3>
             </div>
             <div class="social-links-grid">
-                <a href="https://bakeandcookrecipelennardw.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-cookie"></i>
-                    <span>Back&Cook</span>
-                </a>
-                <a href="https://haushaltsbuchbylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-book"></i>
-                    <span>Haushaltsbuch</span>
-                </a>
-                <a href="https://theminimalastnewscanavas.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-align-right"></i>
-                    <span>The Minimalist News</span>
-                </a>
-                <a href="https://routen-planerlennardw.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-map-pin"></i>
-                    <span>Routen planer</span>
-                </a>
-                <a href="https://surtsey-dielebendevulkaninselbylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-volcano"></i>
-                    <span>Surtsey</span>
-                </a>
-                <a href="https://archiv-core-bylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-regular fa-file-zipper"></i>
-                    <span>.Zip-ArchivCore</span>
-                </a>
-                <a target="_blank" class="social-item">
-                    <i class="fa-regular fa-alarm-clock"></i>
-                    <span>Kommt bald!</span>
-                </a>
+                <a href="https://bakeandcookrecipelennardw.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-cookie"></i><span>Back&Cook</span></a>
+                <a href="https://haushaltsbuchbylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-book"></i><span>Haushaltsbuch</span></a>
+                <a href="https://theminimalastnewscanavas.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-align-right"></i><span>News</span></a>
+                <a href="https://routen-planerlennardw.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-map-pin"></i><span>Routen planer</span></a>
+                <a href="https://surtsey-dielebendevulkaninselbylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-volcano"></i><span>Surtsey</span></a>
+                <a href="https://archiv-core-bylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-regular fa-file-zipper"></i><span>Zip-Archiv</span></a>
             </div>
         </div>
-        
+
     </main>
 </div>
 
@@ -137,30 +115,12 @@
             <button class="modal-close" onclick="toggleModal('style-modal')"><i class="fas fa-xmark"></i></button>
         </div>
         <div class="theme-grid">
-            <button class="t-btn" data-theme-name="dark" onclick="setTheme('dark')">
-                <span class="t-swatch" style="background:#0a0a0a;border-color:#fde047"></span>
-                <span>Batman</span>
-            </button>
-            <button class="t-btn" data-theme-name="hellokitty" onclick="setTheme('hellokitty')">
-                <span class="t-swatch" style="background:#ffdae9;border-color:#ff4d94"></span>
-                <span>Pink</span>
-            </button>
-            <button class="t-btn" data-theme-name="capybara" onclick="setTheme('capybara')">
-                <span class="t-swatch" style="background:#f5ebe0;border-color:#a98467"></span>
-                <span>Capy</span>
-            </button>
-            <button class="t-btn" data-theme-name="spiderman" onclick="setTheme('spiderman')">
-                <span class="t-swatch" style="background:#b91c1c;border-color:#ffffff"></span>
-                <span>Spidey</span>
-            </button>
-            <button class="t-btn" data-theme-name="ocean" onclick="setTheme('ocean')">
-                <span class="t-swatch" style="background:#0d1b2a;border-color:#00d4ff"></span>
-                <span>Ocean</span>
-            </button>
-            <button class="t-btn" data-theme-name="forest" onclick="setTheme('forest')">
-                <span class="t-swatch" style="background:#1a2e1a;border-color:#4ade80"></span>
-                <span>Forest</span>
-            </button>
+            <button class="t-btn" data-theme-name="dark" onclick="setTheme('dark')"><span class="t-swatch" style="background:#0a0a0a;border-color:#fde047"></span><span>Batman</span></button>
+            <button class="t-btn" data-theme-name="hellokitty" onclick="setTheme('hellokitty')"><span class="t-swatch" style="background:#ffdae9;border-color:#ff4d94"></span><span>Pink</span></button>
+            <button class="t-btn" data-theme-name="capybara" onclick="setTheme('capybara')"><span class="t-swatch" style="background:#f5ebe0;border-color:#a98467"></span><span>Capy</span></button>
+            <button class="t-btn" data-theme-name="spiderman" onclick="setTheme('spiderman')"><span class="t-swatch" style="background:#b91c1c;border-color:#ffffff"></span><span>Spidey</span></button>
+            <button class="t-btn" data-theme-name="ocean" onclick="setTheme('ocean')"><span class="t-swatch" style="background:#0d1b2a;border-color:#00d4ff"></span><span>Ocean</span></button>
+            <button class="t-btn" data-theme-name="forest" onclick="setTheme('forest')"><span class="t-swatch" style="background:#1a2e1a;border-color:#4ade80"></span><span>Forest</span></button>
         </div>
     </div>
 </div>
@@ -172,9 +132,7 @@
             <button class="modal-close" onclick="toggleModal('link-modal')"><i class="fas fa-xmark"></i></button>
         </div>
         <div class="link-input-group">
-            <input type="text" id="link-name" placeholder="Name (z.B. GitHub)">
-            <input type="text" id="link-url" placeholder="URL (z.B. https://github.com)">
-            <button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
+            <input type="text" id="link-name" placeholder="Name"><input type="text" id="link-url" placeholder="URL"><button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
         </div>
         <div id="link-list" class="link-list-modal"></div>
     </div>

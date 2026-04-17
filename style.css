@@ -819,6 +819,52 @@ body::after {
     color: var(--bg);
 }
 
+
+/* ============================================
+   SEARCH HISTORY STYLES
+   ============================================ */
+.search-history-dropdown {
+    position: absolute;
+    width: 100%;
+    max-width: 980px; /* Passt zur Suchleiste */
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1.5px solid var(--card-border);
+    border-radius: 20px;
+    margin-top: 10px;
+    display: none;
+    z-index: 100;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.history-item {
+    padding: 12px 26px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent);
+}
+
+.history-item i {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+/* Zeige Verlauf wenn Input Fokus hat */
+.search-section:focus-within .search-history-dropdown:not(:empty) {
+    display: block;
+}
+
+
+
 /* --- HANDY OPTIMIERUNG (WICHTIG) --- */
 @media (max-width: 600px) {
     .social-section {

@@ -31,15 +31,14 @@
     </header>
 
     <section class="search-section">
-        <form id="search-form" class="search-pill">
+        <form id="search-form" action="https://www.google.com/search" method="GET" target="_blank" class="search-pill">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-input" placeholder="Suchen..." autocomplete="off">
+            <input type="text" id="search-input" name="q" placeholder="Suchen..." autocomplete="off">
             <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
         </form>
     </section>
 
     <main class="grid" id="main-grid">
-        
         <div class="card weather-card">
             <div class="weather-main">
                 <i id="w-icon" class="fas fa-sun weather-icon"></i>
@@ -70,89 +69,50 @@
         <div class="card app-card" onclick="openApp('netflix://', 'https://www.netflix.com')">
             <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/netflix.svg" alt="Netflix">
         </div>
-
         <div class="card app-card" onclick="openApp('vnd.youtube://', 'https://www.youtube.com')">
             <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/youtube.svg" alt="YouTube">
         </div>
-
         <div class="card app-card" onclick="openApp('disneyplus://', 'https://www.disneyplus.com')">
             <img class="app-logo" src="https://cnbl-cdn.bamgrid.com/assets/7ecc8bcb60ad77193058d63e321bd21cbac2fc67281dbd9927676ea4a4c83594/original" alt="Disney+">
         </div>
-
         <div class="card app-card" onclick="openApp('hbomax://', 'https://www.max.com')">
             <img class="app-logo" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/hbomax.svg" alt="HBO MAX">
         </div>
 
         <div class="card links-card" id="links-display">
-            <div class="card-header">
-                <h3><i class="fas fa-bookmark"></i> Meine Links</h3>
-            </div>
+            <div class="card-header"><h3><i class="fas fa-bookmark"></i> Meine Links</h3></div>
             <div id="links-grid"></div>
             <button onclick="toggleModal('link-modal')" class="add-link-btn"><i class="fas fa-plus"></i> Link hinzufügen</button>
         </div>
 
         <div class="card links-card social-section">
-            <div class="card-header">
-                <h3><i class="fa-regular fa-flag"></i> Mehr von mir!</h3>
-            </div>
+            <div class="card-header"><h3><i class="fa-regular fa-flag"></i> Mehr von mir!</h3></div>
             <div class="social-links-grid">
-                <a href="https://bakeandcookrecipelennardw.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-cookie"></i>
-                    <span>Back&Cook</span>
-                </a>
-                <a href="https://haushaltsbuchbylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-book"></i>
-                    <span>Haushaltsbuch</span>
-                </a>
-                <a href="https://theminimalastnewscanavas.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-align-right"></i>
-                    <span>The Minimalist News</span>
-                </a>
-                <a href="https://routen-planerlennardw.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-map-pin"></i>
-                    <span>Routen planer</span>
-                </a>
-                <a href="https://surtsey-dielebendevulkaninselbylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-solid fa-volcano"></i>
-                    <span>Surtsey</span>
-                </a>
-                <a href="https://archiv-core-bylennard.vercel.app/" target="_blank" class="social-item">
-                    <i class="fa-regular fa-file-zipper"></i>
-                    <span>.Zip-Archiv</span>
-                </a>
+                <a href="https://haushaltsbuchbylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-book"></i><span>Haushaltsbuch</span></a>
+                <a href="https://routen-planerlennardw.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-map-pin"></i><span>Routen planer</span></a>
+                <a href="https://surtsey-dielebendevulkaninselbylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-solid fa-volcano"></i><span>Surtsey</span></a>
+                <a href="https://archiv-core-bylennard.vercel.app/" target="_blank" class="social-item"><i class="fa-regular fa-file-zipper"></i><span>.Zip-Archiv</span></a>
             </div>
         </div>
-        
     </main>
 </div>
 
 <div id="style-modal" class="modal-overlay" onclick="closeOnOverlay(event,'style-modal')">
     <div class="modal-box">
-        <div class="modal-header">
-            <h3>Design wählen</h3>
-            <button class="modal-close" onclick="toggleModal('style-modal')"><i class="fas fa-xmark"></i></button>
-        </div>
+        <div class="modal-header"><h3>Design wählen</h3><button class="modal-close" onclick="toggleModal('style-modal')"><i class="fas fa-xmark"></i></button></div>
         <div class="theme-grid">
             <button class="t-btn" data-theme-name="dark" onclick="setTheme('dark')"><span class="t-swatch" style="background:#0a0a0a;border-color:#fde047"></span><span>Batman</span></button>
             <button class="t-btn" data-theme-name="hellokitty" onclick="setTheme('hellokitty')"><span class="t-swatch" style="background:#ffdae9;border-color:#ff4d94"></span><span>Pink</span></button>
-            <button class="t-btn" data-theme-name="capybara" onclick="setTheme('capybara')"><span class="t-swatch" style="background:#f5ebe0;border-color:#a98467"></span><span>Capy</span></button>
-            <button class="t-btn" data-theme-name="spiderman" onclick="setTheme('spiderman')"><span class="t-swatch" style="background:#b91c1c;border-color:#ffffff"></span><span>Spidey</span></button>
             <button class="t-btn" data-theme-name="ocean" onclick="setTheme('ocean')"><span class="t-swatch" style="background:#0d1b2a;border-color:#00d4ff"></span><span>Ocean</span></button>
-            <button class="t-btn" data-theme-name="forest" onclick="setTheme('forest')"><span class="t-swatch" style="background:#1a2e1a;border-color:#4ade80"></span><span>Forest</span></button>
         </div>
     </div>
 </div>
 
 <div id="link-modal" class="modal-overlay" onclick="closeOnOverlay(event,'link-modal')">
     <div class="modal-box">
-        <div class="modal-header">
-            <h3>Links verwalten</h3>
-            <button class="modal-close" onclick="toggleModal('link-modal')"><i class="fas fa-xmark"></i></button>
-        </div>
+        <div class="modal-header"><h3>Links verwalten</h3><button class="modal-close" onclick="toggleModal('link-modal')"><i class="fas fa-xmark"></i></button></div>
         <div class="link-input-group">
-            <input type="text" id="link-name" placeholder="Name">
-            <input type="text" id="link-url" placeholder="URL">
-            <button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
+            <input type="text" id="link-name" placeholder="Name"><input type="text" id="link-url" placeholder="URL"><button onclick="addLink()" class="icon-btn"><i class="fas fa-plus"></i></button>
         </div>
         <div id="link-list" class="link-list-modal"></div>
     </div>

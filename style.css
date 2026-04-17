@@ -1,6 +1,6 @@
 /* ============================================
-   DESIGN TOKENS / THEMES
-   ============================================ */
+    DESIGN TOKENS / THEMES
+    ============================================ */
 :root {
     --bg: #0a0a0a;
     --bg2: #111111;
@@ -41,8 +41,8 @@
 }
 
 /* ============================================
-   BASE
-   ============================================ */
+    BASE
+    ============================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
@@ -60,8 +60,8 @@ body {
 }
 
 /* ============================================
-   PARALLAX BACKGROUND ORBS
-   ============================================ */
+    PARALLAX BACKGROUND ORBS
+    ============================================ */
 body::before,
 body::after {
     content: '';
@@ -111,8 +111,8 @@ body::after {
 }
 
 /* ============================================
-   ENTRY ANIMATIONS — Karten fliegen rein
-   ============================================ */
+    ENTRY ANIMATIONS — Karten fliegen rein
+    ============================================ */
 @keyframes cardFlyIn {
     from {
         opacity: 0;
@@ -135,7 +135,6 @@ body::after {
     animation-delay: 0.12s;
 }
 
-/* Jede Karte mit eigenem Delay — Dominoeffekt */
 .card {
     background: var(--card-bg);
     border: 1.5px solid var(--card-border);
@@ -144,15 +143,12 @@ body::after {
     backdrop-filter: blur(12px);
     position: relative;
     overflow: hidden;
-    /* Hover transition */
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.35s ease,
                 border-color 0.35s ease;
-    /* Entry animation */
     animation: cardFlyIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Stagger delays für jede Karte im Grid */
 .grid .card:nth-child(1) { animation-delay: 0.18s; }
 .grid .card:nth-child(2) { animation-delay: 0.26s; }
 .grid .card:nth-child(3) { animation-delay: 0.34s; }
@@ -162,10 +158,8 @@ body::after {
 .grid .card:nth-child(7) { animation-delay: 0.58s; }
 
 /* ============================================
-   HOVER — Glow-Ripple + Tilt
-   ============================================ */
-
-/* Glowing border sweep on hover */
+    HOVER — Glow-Ripple + Tilt
+    ============================================ */
 .card::before {
     content: '';
     position: absolute;
@@ -184,7 +178,6 @@ body::after {
 }
 .card:hover::before { opacity: 1; }
 
-/* Shine sweep effect */
 .card::after {
     content: '';
     position: absolute;
@@ -216,8 +209,8 @@ body::after {
 }
 
 /* ============================================
-   HEADER
-   ============================================ */
+    HEADER
+    ============================================ */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -235,12 +228,11 @@ body::after {
     font-size: clamp(3.5rem, 8vw, 6rem);
     font-weight: 800; color: var(--accent);
     letter-spacing: -3px; line-height: 1;
-    /* Pulse glow on the clock */
     animation: clockPulse 4s ease-in-out infinite;
 }
 @keyframes clockPulse {
     0%,100% { text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3); }
-    50%     { text-shadow: 0 0 50px rgba(var(--accent-rgb), 0.7), 0 0 100px rgba(var(--accent-rgb), 0.3); }
+    50%      { text-shadow: 0 0 50px rgba(var(--accent-rgb), 0.7), 0 0 100px rgba(var(--accent-rgb), 0.3); }
 }
 .header-btns {
     display: flex; gap: 10px;
@@ -263,8 +255,8 @@ body::after {
 }
 
 /* ============================================
-   SEARCH
-   ============================================ */
+    SEARCH
+    ============================================ */
 .search-section { margin-bottom: 32px; }
 .search-pill {
     background: var(--card-bg);
@@ -300,8 +292,8 @@ body::after {
 }
 
 /* ============================================
-   GRID
-   ============================================ */
+    GRID
+    ============================================ */
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -320,8 +312,8 @@ body::after {
 }
 
 /* ============================================
-   WEATHER CARD
-   ============================================ */
+    WEATHER CARD
+    ============================================ */
 .weather-card {
     grid-column: span 2;
     display: flex; flex-direction: column;
@@ -336,7 +328,7 @@ body::after {
 }
 @keyframes float {
     0%,100% { transform: translateY(0) rotate(0deg); }
-    50%     { transform: translateY(-8px) rotate(5deg); }
+    50%      { transform: translateY(-8px) rotate(5deg); }
 }
 .temp-display {
     font-family: 'Syne', sans-serif;
@@ -356,8 +348,8 @@ body::after {
 .weather-details i { color: var(--accent); font-size: 0.75rem; }
 
 /* ============================================
-   TODO CARD
-   ============================================ */
+    TODO CARD
+    ============================================ */
 .todo-card {
     grid-column: span 2;
     display: flex; flex-direction: column; gap: 14px;
@@ -434,27 +426,24 @@ body::after {
 #todo-list li .del-btn:hover { color: #ff4444; }
 
 /* ============================================
-   APP CARDS
-   ============================================ */
+    APP CARDS
+    ============================================ */
 .app-card {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     cursor: pointer; aspect-ratio: 1;
 }
-/* Override the generic card hover for app cards */
 .app-card:hover {
     transform: translateY(-8px) scale(1.04) !important;
     box-shadow: 0 24px 50px rgba(var(--accent-rgb), 0.2),
                 0 8px 20px rgba(0,0,0,0.3) !important;
 }
 
-/* App Logos via jsDelivr — CSS filter für Theme-Farbe */
 .app-logo {
     width: 58%;
     max-width: 110px;
     max-height: 54px;
     height: auto;
-    /* Erst alles schwarz machen (brightness 0), dann invertieren = weiß, dann opacity */
     filter: brightness(0) invert(1) opacity(0.4);
     transition: filter 0.3s ease, transform 0.3s ease;
     pointer-events: none;
@@ -465,7 +454,6 @@ body::after {
     transform: scale(1.1);
 }
 
-/* Helle Themes — weiß zu schwarz */
 [data-theme="hellokitty"] .app-logo,
 [data-theme="capybara"] .app-logo {
     filter: brightness(0) opacity(0.35);
@@ -477,35 +465,9 @@ body::after {
     transform: scale(1.1);
 }
 
-/* Disney+ inline SVG — gleicher Look wie die img Logos */
-.app-logo--svg {
-    width: 82%;
-    max-width: 150px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    color: white;
-    filter: brightness(0) invert(1) opacity(0.4);
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-.app-card:hover .app-logo--svg {
-    filter: brightness(0) invert(1) opacity(1)
-            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
-    transform: scale(1.08);
-}
-[data-theme="hellokitty"] .app-logo--svg,
-[data-theme="capybara"] .app-logo--svg {
-    filter: brightness(0) opacity(0.35);
-}
-[data-theme="hellokitty"] .app-card:hover .app-logo--svg,
-[data-theme="capybara"] .app-card:hover .app-logo--svg {
-    filter: brightness(0) opacity(1)
-            drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.8));
-}
-
 /* ============================================
-   LINKS CARD
-   ============================================ */
+    LINKS CARD
+    ============================================ */
 .links-card {
     grid-column: span 4;
     display: flex; flex-direction: column; gap: 14px;
@@ -549,8 +511,8 @@ body::after {
 .add-link-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ============================================
-   SHARED ICON BTN
-   ============================================ */
+    SHARED ICON BTN
+    ============================================ */
 .icon-btn {
     background: var(--accent); color: var(--bg);
     border: none; width: 42px; height: 42px;
@@ -565,8 +527,8 @@ body::after {
 }
 
 /* ============================================
-   MODALS
-   ============================================ */
+    MODALS
+    ============================================ */
 .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.75);
@@ -650,127 +612,10 @@ body::after {
 .link-list-item button:hover { color: #ff4444; background: rgba(255,68,68,0.1); }
 
 /* ============================================
-   RESPONSIVE — Tablet (max 900px)
-   ============================================ */
-@media (max-width: 900px) {
-    .main-wrapper { max-width: 100%; }
-    #clock { font-size: 5rem; }
-}
-
-/* ============================================
-   RESPONSIVE — Handy (max 600px)
-   ============================================ */
-@media (max-width: 600px) {
-    body { padding: 24px 14px 60px; }
-
-    /* Header */
-    .top-nav { margin-bottom: 24px; align-items: center; }
-    #clock {
-        font-size: clamp(2.8rem, 14vw, 4rem);
-        letter-spacing: -2px;
-    }
-    .header-left #date { font-size: 0.75rem; }
-    .nav-btn span { display: none; } /* nur Icons auf Handy */
-    .nav-btn { padding: 10px 14px; }
-
-    /* Search */
-    .search-section { margin-bottom: 20px; }
-    .search-pill { padding: 12px 14px 12px 20px; }
-    .search-pill input { font-size: 1rem; }
-
-    /* Grid — alles untereinander auf Handy */
-    .grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    /* Wetter & Todo — volle Breite */
-    .weather-card { grid-column: span 2; }
-    .todo-card    { grid-column: span 2; }
-    .links-card   { grid-column: span 2; }
-
-    /* App Cards — 2x2 Grid, quadratisch */
-    .app-card { aspect-ratio: 1; }
-    .app-logo { max-height: 36px; width: 55%; }
-
-    /* Wetter */
-    .temp-display { font-size: 2.4rem; }
-    .weather-icon { font-size: 2.8rem; }
-    .weather-details { gap: 12px; font-size: 0.78rem; }
-
-    /* Todo */
-    #todo-list { max-height: 160px; }
-    .todo-input-row input { font-size: 0.85rem; padding: 9px 12px; }
-
-    /* Modal */
-    .modal-box { padding: 24px 20px; border-radius: 24px; }
-    .theme-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .link-input-group { flex-direction: column; }
-    .link-input-group input { width: 100%; }
-
-    /* Links */
-    .link-chip { font-size: 0.8rem; padding: 7px 12px 7px 9px; }
-}
-
-
-/* ============================================
-   ZUSATZ: MEHR VON MIR
-   ============================================ */
+    MEHR VON MIR
+    ============================================ */
 .social-section {
-    grid-column: span 4; /* Nutzt die volle Breite */
-    margin-top: 10px;
-}
-
-.social-links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    width: 100%;
-}
-
-.social-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 15px;
-    background: var(--input-bg);
-    border: 1.5px solid var(--card-border);
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s ease;
-}
-
-.social-item i {
-    font-size: 1.4rem;
-    color: var(--accent);
-}
-
-.social-item:hover {
-    background: var(--accent);
-    color: var(--bg);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(var(--accent-rgb), 0.2);
-}
-
-.social-item:hover i {
-    color: var(--bg);
-}
-
-/* Handy-Anpassung */
-@media (max-width: 600px) {
-    .social-links-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* ============================================
-   ZUSATZ: MEHR VON MIR (Voll optimiert)
-   ============================================ */
-.social-section {
-    grid-column: span 4; /* Desktop: Volle Breite */
+    grid-column: span 4;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -778,7 +623,6 @@ body::after {
 
 .social-links-grid {
     display: grid;
-    /* Desktop: 4 Spalten */
     grid-template-columns: repeat(4, 1fr); 
     gap: 15px;
     width: 100%;
@@ -786,12 +630,12 @@ body::after {
 
 .social-item {
     display: flex;
-    flex-direction: column; /* Icon über Text */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
     padding: 20px 15px;
-    background: var(--card-bg); /* Gleicher Hintergrund wie die anderen Karten */
+    background: var(--card-bg);
     border: 1.5px solid var(--card-border);
     border-radius: var(--radius-sm);
     color: var(--text);
@@ -807,7 +651,6 @@ body::after {
     color: var(--accent);
 }
 
-/* Hover-Effekt wie bei deinen anderen Karten */
 .social-item:hover {
     background: var(--accent);
     color: var(--bg);
@@ -819,89 +662,26 @@ body::after {
     color: var(--bg);
 }
 
-
 /* ============================================
-   SEARCH HISTORY STYLES
-   ============================================ */
-.search-history-dropdown {
-    position: absolute;
-    width: 100%;
-    max-width: 980px; /* Passt zur Suchleiste */
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    border: 1.5px solid var(--card-border);
-    border-radius: 20px;
-    margin-top: 10px;
-    display: none;
-    z-index: 100;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    RESPONSIVE
+    ============================================ */
+@media (max-width: 900px) {
+    .main-wrapper { max-width: 100%; }
+    #clock { font-size: 5rem; }
 }
 
-.history-item {
-    padding: 12px 26px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    color: var(--text-dim);
-    transition: all 0.2s;
-}
-
-.history-item:hover {
-    background: rgba(var(--accent-rgb), 0.1);
-    color: var(--accent);
-}
-
-.history-item i {
-    font-size: 0.8rem;
-    opacity: 0.5;
-}
-
-/* Zeige Verlauf wenn Input Fokus hat */
-.search-section:focus-within .search-history-dropdown:not(:empty) {
-    display: block;
-}
-
-
-
-/* --- HANDY OPTIMIERUNG (WICHTIG) --- */
 @media (max-width: 600px) {
-    .social-section {
-        grid-column: span 2; /* Passt sich deinem Handy-Grid an */
-    }
-
-    .social-links-grid {
-        /* Auf dem Handy: 2 Spalten, damit es nicht zu eng wird */
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    .social-item {
-        padding: 15px 10px;
-        font-size: 0.8rem;
-    }
-
-    .social-item i {
-        font-size: 1.4rem;
-    }
+    body { padding: 24px 14px 60px; }
+    .top-nav { margin-bottom: 24px; align-items: center; }
+    #clock { font-size: clamp(2.8rem, 14vw, 4rem); letter-spacing: -2px; }
+    .nav-btn span { display: none; }
+    .search-section { margin-bottom: 20px; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .weather-card, .todo-card, .links-card, .social-section { grid-column: span 2; }
+    .social-links-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* Ganz kleine Handys */
-@media (max-width: 380px) {
-    .social-links-grid {
-        grid-template-columns: 1fr; /* Alles untereinander, wenn es zu schmal wird */
-    }
-}
-
-
-
-
-/* ============================================
-   RESPONSIVE — Sehr kleines Handy (max 380px)
-   ============================================ */
 @media (max-width: 380px) {
     #clock { font-size: 2.6rem; }
-    .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .app-logo { max-height: 28px; }
+    .social-links-grid { grid-template-columns: 1fr; }
 }

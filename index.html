@@ -29,14 +29,13 @@
             <button onclick="toggleModal('style-modal')" class="nav-btn"><i class="fas fa-palette"></i><span>Style</span></button>
         </div>
     </header>
-
-    <section class="search-section">
-        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-pill">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" name="q" placeholder="Suchen..." autocomplete="off">
-            <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
-        </form>
-    </section>
+<section class="search-section">
+    <form id="search-form" class="search-pill"> <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search-input" name="q" placeholder="Suchen..." autocomplete="off">
+        <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
+    </form>
+    <div id="search-history" class="search-history-dropdown"></div>
+</section>
 
     <main class="grid" id="main-grid">
 

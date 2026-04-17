@@ -1,40 +1,50 @@
 /* ============================================
-   DASHBOARD — script.js
-   ============================================ */
+    DASHBOARD — script.js
+    ============================================ */
 
-const WMO_ICONS = { 0:'fa-sun', 1:'fa-sun', 2:'fa-cloud-sun', 3:'fa-cloud', 45:'fa-smog', 51:'fa-cloud-rain', 61:'fa-cloud-rain', 71:'fa-snowflake', 80:'fa-cloud-rain', 95:'fa-bolt' };
-const WMO_DESC = { 0:'Klarer Himmel', 1:'Überwiegend klar', 2:'Teilweise bewölkt', 3:'Bedeckt', 45:'Nebel', 51:'Leichter Niesel', 61:'Regen', 71:'Schnee', 80:'Schauer', 95:'Gewitter' };
+const WMO_ICONS = { 0:'fa-sun', 1:'fa-sun', 2:'fa-cloud-sun', 3:'fa-cloud', 45:'fa-smog', 48:'fa-smog', 51:'fa-cloud-rain', 53:'fa-cloud-rain', 55:'fa-cloud-rain', 61:'fa-cloud-rain', 63:'fa-cloud-rain', 65:'fa-cloud-showers-heavy', 71:'fa-snowflake', 73:'fa-snowflake', 75:'fa-snowflake', 77:'fa-snowflake', 80:'fa-cloud-rain', 81:'fa-cloud-rain', 82:'fa-cloud-showers-heavy', 85:'fa-snowflake', 86:'fa-snowflake', 95:'fa-bolt', 96:'fa-bolt', 99:'fa-bolt' };
+const WMO_DESC = { 0:'Klarer Himmel', 1:'Überwiegend klar', 2:'Teilweise bewölkt', 3:'Bedeckt', 45:'Nebel', 48:'Eisnebel', 51:'Leichter Nieselregen', 53:'Nieselregen', 55:'Starker Nieselregen', 61:'Leichter Regen', 63:'Regen', 65:'Starker Regen', 71:'Leichter Schnee', 73:'Schneefall', 75:'Starker Schneefall', 77:'Schneekörner', 80:'Leichte Schauer', 81:'Schauer', 82:'Starke Schauer', 85:'Leichte Schneeschauer', 86:'Schneeschauer', 95:'Gewitter', 96:'Gewitter mit Hagel', 99:'Starkes Gewitter' };
 
 async function getCityName(lat, lon) {
     try {
         const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=de`);
         const d = await r.json();
-        return d.address?.city || d.address?.town || d.address?.village || '–';
+        return d.address?.city || d.address?.town || d.address?.village || d.address?.county || '–';
     } catch { return '–'; }
 }
 
 async function getWeather(lat, lon) {
     try {
         const [weatherRes, city] = await Promise.all([
-            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=auto`),
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&wind_speed_unit=kmh&timezone=auto`),
             getCityName(lat, lon)
         ]);
         const data = await weatherRes.json();
         const cur = data.current;
-        document.getElementById('temp').textContent = Math.round(cur.temperature_2m) + '°';
-        document.getElementById('weather-desc').textContent = WMO_DESC[cur.weather_code] || 'Unbekannt';
+        const temp = Math.round(cur.temperature_2m);
+        const icon = WMO_ICONS[cur.weather_code] || 'fa-cloud';
+        const desc = WMO_DESC[cur.weather_code] || 'Unbekannt';
+
+        const tempEl = document.getElementById('temp');
+        let current = temp - 6;
+        const countUp = () => {
+            current++;
+            tempEl.textContent = current + '°';
+            if (current < temp) requestAnimationFrame(countUp);
+        };
+        requestAnimationFrame(countUp);
+
+        document.getElementById('weather-desc').textContent = desc;
         document.getElementById('humidity').textContent = cur.relative_humidity_2m + '%';
         document.getElementById('wind').textContent = Math.round(cur.wind_speed_10m) + ' km/h';
         document.getElementById('city').textContent = city;
-        document.getElementById('w-icon').className = `fas ${WMO_ICONS[cur.weather_code] || 'fa-cloud'} weather-icon`;
+        document.getElementById('w-icon').className = `fas ${icon} weather-icon`;
     } catch(e) { console.error(e); }
 }
 
 function initWeather() {
-    navigator.geolocation.getCurrentPosition(
-        pos => getWeather(pos.coords.latitude, pos.coords.longitude),
-        () => getWeather(51.8947, 11.0414)
-    );
+    if (!navigator.geolocation) { getWeather(51.8947, 11.0414); return; }
+    navigator.geolocation.getCurrentPosition(pos => getWeather(pos.coords.latitude, pos.coords.longitude), () => getWeather(51.8947, 11.0414));
 }
 
 function updateTime() {
@@ -61,9 +71,9 @@ function renderTodos() {
         list.appendChild(li);
     });
 }
-function addTodo() { const input = document.getElementById('todo-in'); if(!input.value.trim()) return; todos.unshift({text:input.value.trim(), done:false}); localStorage.setItem('todos', JSON.stringify(todos)); renderTodos(); input.value = ''; }
+function addTodo() { const input = document.getElementById('todo-in'); const val = input.value.trim(); if (!val) return; todos.unshift({ text: val, done: false }); localStorage.setItem('todos', JSON.stringify(todos)); renderTodos(); input.value = ''; input.focus(); }
 function toggleTodo(i) { todos[i].done = !todos[i].done; localStorage.setItem('todos', JSON.stringify(todos)); renderTodos(); }
-function deleteTodo(i) { todos.splice(i,1); localStorage.setItem('todos', JSON.stringify(todos)); renderTodos(); }
+function deleteTodo(i) { todos.splice(i, 1); localStorage.setItem('todos', JSON.stringify(todos)); renderTodos(); }
 
 let links = JSON.parse(localStorage.getItem('links') || '[]');
 function renderLinks() {
@@ -78,35 +88,38 @@ function renderLinks() {
         grid.appendChild(chip);
     });
 }
-function addLink() { const n = document.getElementById('link-name'); const u = document.getElementById('link-url'); if(!n.value || !u.value) return; links.push({name:n.value, url:u.value}); localStorage.setItem('links', JSON.stringify(links)); renderLinks(); n.value=''; u.value=''; }
-function deleteLink(e, i) { e.preventDefault(); e.stopPropagation(); links.splice(i,1); localStorage.setItem('links', JSON.stringify(links)); renderLinks(); }
+function addLink() { const name = document.getElementById('link-name').value.trim(); const url = document.getElementById('link-url').value.trim(); if (!name || !url) return; links.push({ name, url }); localStorage.setItem('links', JSON.stringify(links)); renderLinks(); document.getElementById('link-name').value = ''; document.getElementById('link-url').value = ''; }
+function deleteLink(e, i) { e.preventDefault(); e.stopPropagation(); links.splice(i, 1); localStorage.setItem('links', JSON.stringify(links)); renderLinks(); }
 
 function toggleModal(id) { const m = document.getElementById(id); m.classList.toggle('open'); }
-function closeOnOverlay(e, id) { if(e.target.id === id) toggleModal(id); }
+function closeOnOverlay(e, id) { if (e.target.id === id) toggleModal(id); }
 
 function openApp(appScheme, webFallback) {
-    if(!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) { window.open(webFallback, '_blank'); return; }
-    const t = setTimeout(() => window.open(webFallback, '_blank'), 1500);
+    if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) { window.open(webFallback, '_blank'); return; }
+    const fallbackTimer = setTimeout(() => { window.open(webFallback, '_blank'); }, 1500);
     window.location.href = appScheme;
-    window.addEventListener('blur', () => clearTimeout(t), {once:true});
+    window.addEventListener('blur', () => { clearTimeout(fallbackTimer); }, { once: true });
 }
 
 function initParallax() {
-    let mx=0, my=0, cx=0, cy=0;
-    document.addEventListener('mousemove', e => { mx=(e.clientX/window.innerWidth-0.5)*2; my=(e.clientY/window.innerHeight-0.5)*2; });
-    function loop() { cx+=(mx-cx)*0.06; cy+=(my-cy)*0.06; document.body.style.setProperty('--orb-x', `${cx*30}px`); document.body.style.setProperty('--orb-y', `${cy*30}px`); requestAnimationFrame(loop); }
-    loop();
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 2; my = (e.clientY / window.innerHeight - 0.5) * 2; });
+    function lerpOrbs() { cx += (mx - cx) * 0.06; cy += (my - cy) * 0.06; document.body.style.setProperty('--orb-x', `${cx * 30}px`); document.body.style.setProperty('--orb-y', `${cy * 30}px`); requestAnimationFrame(lerpOrbs); }
+    lerpOrbs();
 }
 
 function initCardTilt() {
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mousemove', e => {
-            const r=card.getBoundingClientRect(), dx=(e.clientX-(r.left+r.width/2))/(r.width/2), dy=(e.clientY-(r.top+r.height/2))/(r.height/2);
-            card.style.transform = `translateY(-6px) scale(1.01) perspective(600px) rotateX(${dy*-8}deg) rotateY(${dx*8}deg)`;
+            const r = card.getBoundingClientRect(); const cx = r.left + r.width / 2; const cy = r.top + r.height / 2;
+            const dx = (e.clientX - cx) / (r.width / 2); const dy = (e.clientY - cy) / (r.height / 2);
+            card.style.transform = `translateY(-6px) scale(1.01) perspective(600px) rotateX(${dy * -8}deg) rotateY(${dx * 8}deg)`;
         });
-        card.addEventListener('mouseleave', () => card.style.transform = '');
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
 }
+
+function escapeHtml(str) { const div = document.createElement('div'); div.appendChild(document.createTextNode(str)); return div.innerHTML; }
 
 document.addEventListener('DOMContentLoaded', () => {
     updateTime(); setInterval(updateTime, 1000);
@@ -114,13 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTodos(); renderLinks();
     initParallax(); initCardTilt();
 
-    // SUCHE: LEEREN NACH ENTER
-    const f = document.getElementById('search-form'), i = document.getElementById('search-input');
-    f?.addEventListener('submit', e => {
-        e.preventDefault();
-        if(i.value.trim()) {
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(i.value.trim())}`, '_blank');
-            i.value = ''; i.blur();
-        }
-    });
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('search-input');
+    form?.addEventListener('submit', () => { setTimeout(() => { input.value = ''; input.blur(); }, 10); });
 });

@@ -348,3 +348,51 @@ document.addEventListener('DOMContentLoaded', () => {
     initCardTilt();
 
 });
+
+// ─── SUCHE & VERLAUF ──────────────────────────
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+const historyCont = document.getElementById('search-history');
+
+function saveSearch(query) {
+    let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    // Filtert Duplikate raus und setzt das neue Element nach vorne
+    history = [query, ...history.filter(item => item !== query)].slice(0, 5);
+    localStorage.setItem('searchHistory', JSON.stringify(history));
+    renderSearchHistory();
+}
+
+function renderSearchHistory() {
+    const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+    if (history.length === 0) {
+        historyCont.innerHTML = "";
+        return;
+    }
+    
+    historyCont.innerHTML = history.map(item => `
+        <div class="history-item" onclick="executeSearch('${item}')">
+            <i class="fas fa-history"></i>
+            <span>${item}</span>
+        </div>
+    `).join('');
+}
+
+function executeSearch(query) {
+    if (!query) return;
+    saveSearch(query);
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+    
+    // Feld leeren - das war dein Hauptwunsch!
+    searchInput.value = "";
+    searchInput.blur(); // Optional: Fokus vom Feld nehmen
+}
+
+// Event Listener für das Formular
+searchForm?.addEventListener('submit', (e) => {
+    e.preventDefault(); // Verhindert das Neuladen der Seite
+    executeSearch(searchInput.value.trim());
+});
+
+// Initialisierung beim Laden (in deinen DOMContentLoaded-Block einfügen)
+renderSearchHistory();
+
